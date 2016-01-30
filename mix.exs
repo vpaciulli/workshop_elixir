@@ -2,6 +2,7 @@ defmodule WorkshopElixir.Mixfile do
   use Mix.Project
 
   def project do
+    Node.connect(:"server@localhost")
     [app: :workshop_elixir,
      version: "0.0.1",
      elixir: "~> 1.1",

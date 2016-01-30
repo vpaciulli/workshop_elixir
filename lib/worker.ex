@@ -13,6 +13,7 @@ defmodule Worker do
   def loop do
     receive do
       {raw, hash}  ->
+        #"Received Raw: #{raw} and hash #{hash}" |> IO.puts
         send(server_pid, eq?(raw, hash))
         send(server_pid, {:request, self()})
         loop
