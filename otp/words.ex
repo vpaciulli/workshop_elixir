@@ -4,12 +4,17 @@ defmodule Words do
   end
 
   def pop(words) do
-    random_position = words |> length |> :random.uniform
-    Agent.get(words, fn w ->
-      pop_this = elem(w, random_position)
-      List.delete_at(w, random_position)
-      pop_this
-    end)
+    length = words |> Agent.get(&(&1)) |> tuple_size
+    poped = words |> Agent.get(&(elem(&1, 0)))
+    case length do
+      0 -> IO.puts "list finished"
+      _ -> Agent.update(words, &(Tuple.delete_at(&1, 0)))
+    end
+    poped
+  end
+
+  def length(words) do
+    Agent.get(words, &(&1)) |> tuple_size
   end
 
   defp gen_word_list do
@@ -17,9 +22,9 @@ defmodule Words do
     word_list = String.split(w, "\n")
 
     Enum.map(word_list, fn elem ->
-      repetitions = :random.uniform(8)
-      [elem] ++ for s <- 1..repetitions, do: sample(elem) |> to_string
-    end) |> List.flatten |> List.to_tuple
+      repetitions = :random.uniform(999)
+      [elem] ++ for _ <- 1..repetitions, do: sample(elem) |> to_string
+    end) |> List.flatten |> Enum.shuffle |> List.to_tuple
   end
 
   defp sample(word) do
