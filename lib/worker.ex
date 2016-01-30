@@ -7,7 +7,7 @@ defmodule Worker do
   end
 
   def server_pid do
-    :global.whereis_name("server")
+    :global.whereis_name("simple_server")
   end
 
   def loop do
@@ -20,6 +20,6 @@ defmodule Worker do
   end
 
   def match?(raw, hash) do
-    return {hash == Base.encode64(raw) raw}
+    return {hash == Base.encode64(raw), raw}
   end
 end
