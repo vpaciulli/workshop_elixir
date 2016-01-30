@@ -6,8 +6,8 @@ defmodule Words do
   def pop(words) do
     random_position = words |> length |> :random.uniform
     Agent.get(words, fn w ->
-      pop_this = elem(words, random_position)
-      List.delete_at(words, random_position)
+      pop_this = elem(w, random_position)
+      List.delete_at(w, random_position)
       pop_this
     end)
   end
