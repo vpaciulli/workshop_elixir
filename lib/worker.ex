@@ -13,13 +13,13 @@ defmodule Worker do
   def loop do
     receive do
       {raw, hash}  ->
-        send(server_pid, match?(raw, hash))
+        send(server_pid, eq?(raw, hash))
         send(server_pid, {:request, self()})
         loop
     end
   end
 
-  def match?(raw, hash) do
+  def eq?(raw, hash) do
     return {hash == Base.encode64(raw), raw}
   end
 end
