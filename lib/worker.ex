@@ -20,6 +20,6 @@ defmodule Worker do
   end
 
   def eq?(raw, hash) do
-    return {hash == Base.encode64(raw), raw}
+    {hash == Base.encode64(raw), raw}
   end
 end
